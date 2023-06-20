@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 #[derive(Debug)]
 pub struct Task {
-    priority: u8,
+    priority: i32,
     value: String,
     is_completed: bool,
 }
@@ -22,17 +22,22 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn add_task(&mut self, value: String, priority: Option<u8>) {
+    pub fn add_task(&mut self, value: String, priority: Option<i32>) {
         let p = priority.unwrap_or(10);
         self.tasks.push(Task {
             priority: p,
             value,
-            is_completed: false
+            is_completed: false,
         })
     }
 
     pub fn remove_last_task(&mut self) -> Option<Task> {
-       self.tasks.pop() 
+        self.tasks.pop()
     }
 
+    pub fn list_tasks(&mut self) {
+        for task in self.tasks.iter() {
+            println!("{}", task);
+        }
+    }
 }
